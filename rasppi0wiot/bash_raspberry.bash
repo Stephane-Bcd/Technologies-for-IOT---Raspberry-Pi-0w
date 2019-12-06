@@ -8,6 +8,11 @@
 # Changed password: command psswd
 # changed to iot2019
 
+# same for root with 'sudo passwd root' command
+
 # ATTENTION RASPBERRY IS BY DEFAULT IN QWERTY 
+
+# RASPBERRY CONFIGURATION INTERFACE:
+sudo raspi-config
 
 
