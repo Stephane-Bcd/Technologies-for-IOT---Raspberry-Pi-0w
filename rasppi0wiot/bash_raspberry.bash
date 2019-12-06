@@ -2,4 +2,12 @@
 # doesn't ned to be executed on you local computer
 
 # default logins for raspberry:
-# 
+# Username 	Password
+# pi 	    raspberry
+
+# Changed password: command psswd
+# changed to iot2019
+
+# ATTENTION RASPBERRY IS BY DEFAULT IN QWERTY 
+
+
