@@ -5,12 +5,15 @@ import json
 ca =  CountryAggregator()
 print("region for usa:")
 print(ca.get_country_region("USA"))
+print("")
 
 print("All regions:")
 print(ca.get_all_regions())
+print("")
 
 print("All sub-regions:")
 print(ca.get_all_subregions())
+print("")
 
 
 
