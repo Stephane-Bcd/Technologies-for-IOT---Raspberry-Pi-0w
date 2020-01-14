@@ -18,7 +18,7 @@ Last 24 hours: https://www.gdacs.org/xml/rss_24h.xml
 Last 48 hours magnitude > 4.5: https://www.gdacs.org/xml/rss_eq_48h_low.xml
 
 
-#Topology of the LED/COUNTRIES
+# Topology of the LED/COUNTRIES
 
 1- ROUGE = AMERIQUE DU NORD (pin-->GPIO 7)
 2- BLANC = AMERIQUE DU SUD (pin-->GPIO 0)
