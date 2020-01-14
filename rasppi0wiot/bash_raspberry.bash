@@ -15,4 +15,8 @@
 # RASPBERRY CONFIGURATION INTERFACE:
 sudo raspi-config
 
-
+# to clone repository
+ git clone "https://github.com/Stephane-Bcd/Technologies-for-IOT---Raspberry-Pi-0w" ./Tech\ for\ IOT
+ 
+ # data retrieved from
+ https://www.gdacs.org/xml/rss_24h.xml
