@@ -43,6 +43,8 @@ class RssAggregator():
 		feed = thefeed.feed
 
 		print("Getting Feed Data")
+		
+		#add selected data here
 		self.data["title"] = feed.get("title", "")
 		self.data["link"] = feed.get("link", "")
 		self.data["description"] = feed.get("description", "")
@@ -55,10 +57,14 @@ class RssAggregator():
 
 		for entry in thefeed.entries:
 			entry_data = {}
+			
+			#add selected data here
 			entry_data["guid"] = entry.get("guid", "")
 			entry_data["title"] = entry.get("title", "")
 			entry_data["link"] = entry.get("link", "")
 			entry_data["description"] = entry.get("description", "")
+			
+			
 			self.entries.append(RssEntry(entry_data))
 			entries_count += 1
 		
@@ -66,8 +72,17 @@ class RssAggregator():
 		self.data["entries_count"] = entries_count
 			
 		print("Finished\n")
+		
+	def get_entries_dict(self):
+		entries_json = []
+		for entry in self.entries:
+			entries_json.append(entry.data)
+		return entries_json
+	
+	def get_all_data_dict(self):
+		return 
 
 	def __str__(self):
-		return json.dumps(self.data, indent=4)
+		return "Data: \n" + json.dumps(self.data, indent=4) + "\n\nEntries: \n" + json.dumps(self.get_entries_dict(), indent=4)
 
 
