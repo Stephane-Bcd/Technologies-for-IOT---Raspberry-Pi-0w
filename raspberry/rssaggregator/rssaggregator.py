@@ -64,6 +64,10 @@ class RssAggregator():
 			entry_data["title"] = entry.get("title", "")
 			entry_data["link"] = entry.get("link", "")
 			entry_data["description"] = entry.get("description", "")
+			entry_data["links"] = entry.get("links", "")
+			entry_data["geo_lat"] = entry.get("geo_lat", "")
+			entry_data["geo_long"] = entry.get("geo_long", "")
+			entry_data["gdacs_country"] = entry.get("gdacs_country", [])
 			
 			
 			self.entries.append(RssEntry(entry_data))
