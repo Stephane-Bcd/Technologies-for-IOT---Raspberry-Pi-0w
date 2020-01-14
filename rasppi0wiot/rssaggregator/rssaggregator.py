@@ -29,5 +29,4 @@ class RssAggregator():
 			print("__________")
 
 
-rssobject = WhizRssAggregator("https://www.gdacs.org/xml/rss_24h.xml")
-rssobject.parse()
+
