@@ -19,9 +19,6 @@
 
 # to clone repository
 # git clone "https://github.com/Stephane-Bcd/Technologies-for-IOT---Raspberry-Pi-0w" "./Tech for IOT"
- 
- # data retrieved from
- # https://www.gdacs.org/xml/rss_24h.xml
 
 # To install python requirements (file at the root of this git project):
 sudo apt install python3
