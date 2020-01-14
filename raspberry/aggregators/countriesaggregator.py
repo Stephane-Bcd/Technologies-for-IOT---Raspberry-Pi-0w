@@ -26,3 +26,13 @@ class CountryAggregator():
 		
 		return l
 
+	def get_all_subregions(self):
+		r = requests.get(self.api_url+"all?fields=subregion")
+		l = []
+		j = json.loads(r.text)
+		
+		for elem in j:
+			if elem["subregion"] not in l:
+				l.append(elem["subregion"])
+		
+		return l

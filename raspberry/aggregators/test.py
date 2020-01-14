@@ -2,12 +2,20 @@ from rssaggregator import RssAggregator, RssEntry
 from countriesaggregator import CountryAggregator
 import json
 
-#Getting data from RSS
-#rssobject = RssAggregator("https://www.gdacs.org/xml/rss_eq_48h_low.xml", verbose=False)
 ca =  CountryAggregator()
+print("region for usa:")
 print(ca.get_country_region("USA"))
+
+print("All regions:")
 print(ca.get_all_regions())
 
+print("All sub-regions:")
+print(ca.get_all_subregions())
+
+
+
+#Getting data from RSS
+#rssobject = RssAggregator("https://www.gdacs.org/xml/rss_eq_48h_low.xml", verbose=False)
 
 # Printing in dict format
 '''
