@@ -31,10 +31,10 @@ class RssAggregator():
 		self.entries = []
 		self.data = {}
 		self.data["feedurl"] = paramrssurl
-		
-		if verbose: print(json.dumps(self.thefeed.__dict__,indent=4))
-		
 		self.parse(verbose)
+		
+		if verbose: print(self.thefeed)
+		
 
 	def parse(self, verbose=False):
 		self.thefeed = feedparser.parse(self.data["feedurl"])
@@ -68,6 +68,11 @@ class RssAggregator():
 			entry_data["geo_lat"] = entry.get("geo_lat", "")
 			entry_data["geo_long"] = entry.get("geo_long", "")
 			entry_data["gdacs_country"] = entry.get("gdacs_country", [])
+			entry_data["gdacs_iscurrent"] = entry.get("gdacs_iscurrent", "")
+			entry_data["gdacs_durationinweek"] = entry.get("gdacs_durationinweek", "")
+			entry_data["gdacs_icon"] = entry.get("gdacs_icon", "")
+			entry_data["gdacs_severity"] = entry.get("gdacs_severity", "")
+			entry_data["gdacs_population"] = entry.get("gdacs_population", "")
 			
 			
 			self.entries.append(RssEntry(entry_data))
