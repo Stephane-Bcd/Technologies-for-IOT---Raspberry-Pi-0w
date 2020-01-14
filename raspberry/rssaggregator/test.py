@@ -1,7 +1,7 @@
+from rssaggregator import RssAggregator, RssEntry
 
-from rssaggregator import RssAggregator
-
-rssobject = RssAggregator("https://www.gdacs.org/xml/rss_24h.xml")
-rssobject.parse()
+rssobject = RssAggregator("https://www.gdacs.org/xml/rss_24h.xml", verbose=False)
 
 
+
+print(rssobject)

@@ -1,32 +1,73 @@
 import feedparser
+import json
 
+
+class RssEntry():
+	
+	data = {}
+	
+	def __init__(self, data):
+		self.data = data
+
+	def __str__(self):
+		return json.dumps(self.data, indent=4)
 
 class RssAggregator():
-	feedurl = ""
+	
+	# list of entries in xml file
+	entries = [] 
+	
+	# data parsed for our purpose
+	data = {} 
+	
+	# data parsed by feedparser lib (check it with an online json parser)
+	thefeed = {} 
 
-	def __init__(self, paramrssurl):
-		print(paramrssurl)
+	def __init__(self, paramrssurl, verbose=False):
+		print("Creating RssAgregator:")
+		print("Used url: " + paramrssurl)
 		print("")
-		self.feedurl = paramrssurl
+		
+		self.entries = []
+		self.data = {}
+		self.data["feedurl"] = paramrssurl
+		
+		if verbose: print(json.dumps(self.thefeed.__dict__,indent=4))
+		
+		self.parse(verbose)
 
-	def parse(self):
-		thefeed = feedparser.parse(self.feedurl)
+	def parse(self, verbose=False):
+		self.thefeed = feedparser.parse(self.data["feedurl"])
+		
+		thefeed = self.thefeed
+		feed = thefeed.feed
 
 		print("Getting Feed Data")
-		print(thefeed.feed.get("title", ""))
-		print(thefeed.feed.get("link", ""))
-		print(thefeed.feed.get("description", ""))
-		print(thefeed.feed.get("published", ""))
-		print(thefeed.feed.get("published_parsed", thefeed.feed.published_parsed))
-		print("\n\n")
+		self.data["title"] = feed.get("title", "")
+		self.data["link"] = feed.get("link", "")
+		self.data["description"] = feed.get("description", "")
+		self.data["published"] = feed.get("published", "")
+		self.data["author"] = feed.get("author", "")
+		
+		if verbose: print (json.dumps(self.data, indent=4))
+		
+		entries_count = 0
 
-		for thefeedentry in thefeed.entries:
-			print("__________")
-			print(thefeedentry.get("guid", ""))
-			print(thefeedentry.get("title", ""))
-			print(thefeedentry.get("link", ""))
-			print(thefeedentry.get("description", ""))
-			print("__________")
+		for entry in thefeed.entries:
+			entry_data = {}
+			entry_data["guid"] = entry.get("guid", "")
+			entry_data["title"] = entry.get("title", "")
+			entry_data["link"] = entry.get("link", "")
+			entry_data["description"] = entry.get("description", "")
+			self.entries.append(RssEntry(entry_data))
+			entries_count += 1
+		
+		
+		self.data["entries_count"] = entries_count
+			
+		print("Finished\n")
 
+	def __str__(self):
+		return json.dumps(self.data, indent=4)
 
 
