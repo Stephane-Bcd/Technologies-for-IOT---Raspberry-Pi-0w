@@ -1,7 +1,7 @@
 import feedparser
 
 
-class WhizRssAggregator():
+class RssAggregator():
 	feedurl = ""
 
 	def __init__(self, paramrssurl):
