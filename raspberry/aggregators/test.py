@@ -4,6 +4,22 @@ import json
 
 run_all_tests = False
 
+ca =  CountryAggregator()
+
+
+
+	print("region for usa:")
+	print(ca.get_country_region("USA"))
+	print("")
+
+	print("All regions and subregions:")
+	print(json.dumps(ca.get_all_regions_and_subregions(),indent=4))
+	print("")
+	print("All regions and subregions (for gpio):")
+	print(json.dumps(ca.get_all_regions_and_subregions_for_gpio(),indent=4))
+	print("")
+
+
 if run_all_tests: 
 	ca =  CountryAggregator()
 

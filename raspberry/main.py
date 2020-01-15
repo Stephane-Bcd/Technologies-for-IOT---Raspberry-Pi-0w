@@ -27,6 +27,7 @@ gpc = GPIOController()
 
 gpc.switch_leds_states(dfg.gpio_data)
 
+'''
 time.sleep(10)
 
 gpc.switch_leds_states(regions_booleans = {
@@ -38,6 +39,7 @@ gpc.switch_leds_states(regions_booleans = {
 			"South America": False,
 			"Western Asia": False
 		})
+'''
 
 print("\nData sent to messageries and to influxdb: ")
 print(json.dumps(dfg.joined_data,indent=4))
