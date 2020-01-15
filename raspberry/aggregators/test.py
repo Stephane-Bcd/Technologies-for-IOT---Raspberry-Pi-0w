@@ -42,9 +42,7 @@ if run_all_tests:
 
 dfg = DataForGPIO("https://www.gdacs.org/xml/rss_24h.xml",minalertscore=2)
 
-# print(json.dumps(dfg.joined_data,indent=4))
-
-print(json.dumps(dfg.gpio_data))
+print(json.dumps(dfg.gpio_data,indent=4))
 
 
 

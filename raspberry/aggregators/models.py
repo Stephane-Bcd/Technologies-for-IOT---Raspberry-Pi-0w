@@ -235,7 +235,7 @@ class DataForGPIO():
 		self.ca =  CountryAggregator()
 		self.rss = RssAggregator(rss_url, verbose=False)
 		self.fill_joined_data()
-		self.filter_joined_data()
+		self.filter_joined_data(minalertscore)
 		self.fill_gpio_data()
 	
 	def fill_joined_data(self):
