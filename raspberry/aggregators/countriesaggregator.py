@@ -87,6 +87,20 @@ class CountryAggregator():
 				res[elem["region"]].append(elem["subregion"])
 
 		return res
+
+		
+	def get_all_regions_for_gpio(self):
+		r = requests.get(self.api_url+"all?fields=subregion;region")
+		j = json.loads(r.text)
+		res = []
+		
+		for elem in j:
+			elem["region"] = self.format_region_for_gpio(elem["region"], elem["subregion"])
+			if elem["region"] not in res:
+				res.append(elem["region"])
+			
+
+		return res
 		
 
 

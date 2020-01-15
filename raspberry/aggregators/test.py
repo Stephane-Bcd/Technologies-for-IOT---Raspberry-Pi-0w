@@ -14,12 +14,14 @@ print("")
 '''print("All regions and subregions:")
 print(json.dumps(ca.get_all_regions_and_subregions(),indent=4))
 print("")'''
-
-
-print("All regions and subregions (for gpio):")
+'''rint("All regions and subregions (for gpio):")
 print(json.dumps(ca.get_all_regions_and_subregions_for_gpio(),indent=4))
-print("")
+print("")'''
 
+
+print("All regions (for gpio):")
+print(json.dumps(ca.get_all_regions_for_gpio(),indent=4))
+print("")
 
 #Getting data from RSS
 #rssobject = RssAggregator("https://www.gdacs.org/xml/rss_eq_48h_low.xml", verbose=False)
