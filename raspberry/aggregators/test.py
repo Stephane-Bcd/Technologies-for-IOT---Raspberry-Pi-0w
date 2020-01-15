@@ -7,14 +7,18 @@ print("region for usa:")
 print(ca.get_country_region("USA"))
 print("")
 
-print("All regions:")
-print(ca.get_all_regions())
+print("region (for gpio) for usa:")
+print(ca.get_country_region_for_gpio("USA"))
 print("")
 
-print("All sub-regions:")
-print(ca.get_all_subregions())
-print("")
+'''print("All regions and subregions:")
+print(json.dumps(ca.get_all_regions_and_subregions(),indent=4))
+print("")'''
 
+
+print("All regions and subregions (for gpio):")
+print(json.dumps(ca.get_all_regions_and_subregions_for_gpio(),indent=4))
+print("")
 
 
 #Getting data from RSS
