@@ -32,3 +32,5 @@ Last 48 hours magnitude > 4.5: https://www.gdacs.org/xml/rss_eq_48h_low.xml
 Documentation of Raspberry pi 3B pins: 
 
 ![alt text](https://i.stack.imgur.com/gaU6t.png)
+
+(This board is used: GPIO.setmode(GPIO.BCM))
