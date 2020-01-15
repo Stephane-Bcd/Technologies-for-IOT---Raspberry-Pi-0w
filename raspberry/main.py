@@ -40,4 +40,4 @@ gpc.switch_leds_states(regions_booleans = {
 		})
 
 print("\nData sent to messageries and to influxdb: ")
-print(dfg.joined_data)
+print(json.dumps(dfg.joined_data,indent=4))
