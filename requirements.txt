@@ -2,3 +2,4 @@ feedparser>=5.2.1
 RPi.GPIO>=0.7.0
 RPLCD>=1.2.2
 requests>=2.22.0
+influxdb>=5.2.3
