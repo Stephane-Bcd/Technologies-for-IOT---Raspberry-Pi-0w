@@ -18,6 +18,12 @@ EAST_ASIA_LED = 5
 OCEANIA_LED = 6
 
 GPIO.setup(NORTH_AMERICA_LED, GPIO.OUT) #Active le contrôle du GPIO
+GPIO.setup(SOUTH_AMERICA_LED, GPIO.OUT)
+GPIO.setup(EUROPE_LED, GPIO.OUT)
+GPIO.setup(AFRICA_LED, GPIO.OUT)
+GPIO.setup(WEST_ASIA_LED, GPIO.OUT)
+GPIO.setup(EAST_ASIA_LED, GPIO.OUT)
+GPIO.setup(OCEANIA_LED, GPIO.OUT)
 
 #Lit l'état actuel du GPIO, vrai si allumé, faux si éteint
 
