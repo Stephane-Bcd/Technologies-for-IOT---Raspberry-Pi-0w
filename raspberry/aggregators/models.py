@@ -117,15 +117,26 @@ class RssAggregator():
 
 class CountryAggregator():
 	
-	api_url = ""
-	
 	def __init__(self):
 		self.api_url = "https://restcountries.eu/rest/v2/"
+		
+		self.api_country_region = {}
+		self.api_country_region_gpio = {}
+		self.api_all_regions = []
+		self.api_all_regions_gpio = []
+		self.api_all_subregions = []
+		self.api_all_regions_and_subregions = {}
+		self.api_all_regions_and_subregions_gpio = {}
 	
 
 	def get_country_region(self, country):
-		r = requests.get(self.api_url+"name/"+country+"?fullText=true&fields=region")
-		return json.loads(r.text)[0]["region"]
+		if country in self.api_country_region:
+			return self.api_country_region[country]
+		else:
+			r = requests.get(self.api_url+"name/"+country+"?fullText=true&fields=region")
+			returned_region = json.loads(r.text)[0]["region"]
+			self.api_country_region[country] = returned_region
+			return returned_region
 		
 	def format_region_for_gpio(self, region_to_format, subregion):
 		if region_to_format in ["Europe", "Africa", "Oceania", "Polar", ""]:
@@ -144,79 +155,102 @@ class CountryAggregator():
 			else: return ""
 
 	def get_country_region_for_gpio(self, country):
-		r = requests.get(self.api_url+"name/"+country+"?fullText=true&fields=region;subregion")
-		if r.text != '{"status":404,"message":"Not Found"}':
-			region_to_format = json.loads(r.text)[0]["region"]
-			subregion = json.loads(r.text)[0]["subregion"]
+		if country in self.api_country_region_gpio:
+			return self.api_country_region_gpio[country]
 		else:
-			return "Not found"
-		
-		return self.format_region_for_gpio(region_to_format, subregion)
+			r = requests.get(self.api_url+"name/"+country+"?fullText=true&fields=region;subregion")
+			if r.text != '{"status":404,"message":"Not Found"}':
+				region_to_format = json.loads(r.text)[0]["region"]
+				subregion = json.loads(r.text)[0]["subregion"]
+				region_formatted = self.format_region_for_gpio(region_to_format, subregion)
+				self.api_country_region_gpio[country] = region_formatted
+				return region_formatted
+			else:
+				self.api_country_region_gpio[country] = "Not found"
+				return "Not found"
 
 
 	def get_all_regions(self):
-		r = requests.get(self.api_url+"all?fields=region")
-		j = json.loads(r.text)
-		l = []
-		
-		for elem in j:
-			if elem["region"] not in l:
-				l.append(elem["region"])
-		
-		return l
+		if len(self.api_all_regions)>0:
+			return self.api_all_regions
+		else:
+			r = requests.get(self.api_url+"all?fields=region")
+			j = json.loads(r.text)
+			l = []
+			
+			for elem in j:
+				if elem["region"] not in l:
+					l.append(elem["region"])
+			
+			self.api_all_regions = l
+			return l
 
 	def get_all_subregions(self):
-		r = requests.get(self.api_url+"all?fields=subregion")
-		j = json.loads(r.text)
-		l = []
-		
-		for elem in j:
-			if elem["subregion"] not in l:
-				l.append(elem["subregion"])
-		
-		return l
+		if len(self.api_all_subregions)>0:
+			return self.api_all_subregions
+		else:
+			r = requests.get(self.api_url+"all?fields=subregion")
+			j = json.loads(r.text)
+			l = []
+			
+			for elem in j:
+				if elem["subregion"] not in l:
+					l.append(elem["subregion"])
+					
+			self.api_all_subregions = l
+			return l
 		
 	def get_all_regions_and_subregions(self):
-		r = requests.get(self.api_url+"all?fields=subregion;region")
-		j = json.loads(r.text)
-		res = {}
-		
-		for elem in j:
-			if elem["region"] not in res:
-				res[elem["region"]] = []
-			if  elem["subregion"] not in res[elem["region"]]:
-				res[elem["region"]].append(elem["subregion"])
-
-		return res
+		if self.api_all_regions_and_subregions != {}:
+			return self.api_all_regions_and_subregions
+		else:
+			r = requests.get(self.api_url+"all?fields=subregion;region")
+			j = json.loads(r.text)
+			res = {}
+			
+			for elem in j:
+				if elem["region"] not in res:
+					res[elem["region"]] = []
+				if  elem["subregion"] not in res[elem["region"]]:
+					res[elem["region"]].append(elem["subregion"])
+			self.api_all_regions_and_subregions = res
+			return res
 
 		
 	def get_all_regions_and_subregions_for_gpio(self):
-		r = requests.get(self.api_url+"all?fields=subregion;region")
-		j = json.loads(r.text)
-		res = {}
-		
-		for elem in j:
-			elem["region"] = self.format_region_for_gpio(elem["region"], elem["subregion"])
-			if elem["region"] not in res:
-				res[elem["region"]] = []
-			if  elem["subregion"] not in res[elem["region"]]:
-				res[elem["region"]].append(elem["subregion"])
-
-		return res
+		if self.api_all_regions_and_subregions_gpio != {}:
+			return self.api_all_regions_and_subregions_gpio
+		else:
+			r = requests.get(self.api_url+"all?fields=subregion;region")
+			j = json.loads(r.text)
+			res = {}
+			
+			for elem in j:
+				elem["region"] = self.format_region_for_gpio(elem["region"], elem["subregion"])
+				if elem["region"] not in res:
+					res[elem["region"]] = []
+				if  elem["subregion"] not in res[elem["region"]]:
+					res[elem["region"]].append(elem["subregion"])
+					
+			self.api_all_regions_and_subregions_gpio = res
+			return res
 
 		
 	def get_all_regions_for_gpio(self):
-		r = requests.get(self.api_url+"all?fields=subregion;region")
-		j = json.loads(r.text)
-		res = []
-		
-		for elem in j:
-			elem["region"] = self.format_region_for_gpio(elem["region"], elem["subregion"])
-			if elem["region"] not in res:
-				res.append(elem["region"])
+		if len(self.api_all_regions_gpio)>0:
+			return self.api_all_regions_gpio
+		else:
+			r = requests.get(self.api_url+"all?fields=subregion;region")
+			j = json.loads(r.text)
+			res = []
 			
-
-		return res
+			for elem in j:
+				elem["region"] = self.format_region_for_gpio(elem["region"], elem["subregion"])
+				if elem["region"] not in res and elem["region"] not in [None, "", "Not found", "Polar"]:
+					res.append(elem["region"])
+				
+			self.api_all_regions_gpio = res
+			return res
 
 
 '''
@@ -246,7 +280,7 @@ class DataForGPIO():
 			entry_countries = entry["gdacs_country"].split(", ")
 			for entry_country in entry_countries:
 				entry_region = self.ca.get_country_region_for_gpio(entry_country)
-				if entry_region not in [None, "", "Not found"]:
+				if entry_region not in [None, "", "Not found", "Polar"]:
 					if entry_region not in self.joined_data:
 						self.joined_data[entry_region]= []
 					self.joined_data[entry_region].append(entry)
@@ -271,11 +305,11 @@ class DataForGPIO():
 		regions = self.ca.get_all_regions_for_gpio()
 		
 		for region in regions:
-			light_up_led = False
 			
 			if region in self.joined_data:
 				self.gpio_data[region] = True
-			
+			else:
+				self.gpio_data[region] = False
 			
 			
 			
