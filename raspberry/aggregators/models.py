@@ -181,6 +181,7 @@ class CountryAggregator():
 
 	def get_country_region_for_gpio(self, country):
 		print("Starting: "+path()+"/CountryAggregator/get_country_region_for_gpio")
+		print(country)
 		if country in self.api_country_region_gpio:
 			print("Ending: "+path()+"/CountryAggregator/get_country_region_for_gpio")
 			return self.api_country_region_gpio[country]
