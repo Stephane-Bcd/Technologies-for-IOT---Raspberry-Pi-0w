@@ -16,7 +16,7 @@ RSS_SOURCE = "https://www.gdacs.org/xml/rss_24h.xml"
 MIN_ALERT_SCORE = 3
 
 
-dfg = DataForGPIO(RSS_SOURCE,minalertscore=2)
+dfg = DataForGPIO(RSS_SOURCE,minalertscore=MIN_ALERT_SCORE)
 
 print("Data for GPIO:")
 print(json.dumps(dfg.gpio_data,indent=4))
