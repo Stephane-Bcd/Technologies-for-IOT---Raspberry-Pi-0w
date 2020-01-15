@@ -23,17 +23,15 @@
 # To install python requirements (file at the root of this git project):
 
 sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-    
-curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | sudo apt-key add -
+sudo apt-get upgrade
 
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-   
-sudo apt-get update
-
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
-
-sudo docker run hello-world
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker pi
+docker run hello-world
+sudo apt-get install libffi-dev libssl-dev
+sudo apt-get install -y python3 python3-pip
+sudo apt-get remove python-configparser
+sudo pip3 install docker-compose
 
 sudo docker network create iot-labs
 
@@ -43,7 +41,5 @@ sudo docker ps -a
 
 
 
-sudo apt install python3
-sudo apt install python3-pip
 pip3 install -r requirements.txt
 
