@@ -13,7 +13,7 @@ import time
 '''
 
 RSS_SOURCE = "https://www.gdacs.org/xml/rss_24h.xml"
-MIN_ALERT_SCORE = 3
+MIN_ALERT_SCORE = 2
 
 
 dfg = DataForGPIO(RSS_SOURCE,minalertscore=MIN_ALERT_SCORE)
