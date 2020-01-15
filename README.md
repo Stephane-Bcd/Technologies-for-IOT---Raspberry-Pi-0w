@@ -20,12 +20,12 @@ Last 48 hours magnitude > 4.5: https://www.gdacs.org/xml/rss_eq_48h_low.xml
 
 #Topology of the LED/COUNTRIES
 
-1- ROUGE = AMERIQUE DU NORD (pin-->GPIO 7)
-2- NOIR = AMERIQUE DU SUD (pin-->GPIO 0)
-3- VERT = EUROPE (pin-->GPIO 2)
-4- JAUNE = AFRIQUE (pin-->GPIO 3)
-5- ORANGE = ASIE DE L'OUEST (pin-->GPIO 4)
-6- BLEU = ASIE DE L'EST (pin-->GPIO 5)
-7- GRIS/NOIR = OCEANIE (pin-->GPIO 6)
+1. ROUGE = AMERIQUE DU NORD (pin-->GPIO 7)
+2. NOIR = AMERIQUE DU SUD (pin-->GPIO 0)
+3. VERT = EUROPE (pin-->GPIO 2)
+4. JAUNE = AFRIQUE (pin-->GPIO 3)
+5. ORANGE = ASIE DE L'OUEST (pin-->GPIO 4)
+6. BLEU = ASIE DE L'EST (pin-->GPIO 5)
+7. GRIS/NOIR = OCEANIE (pin-->GPIO 6)
 
 (blanc/blanc : GND)
