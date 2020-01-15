@@ -11,13 +11,13 @@ class GPIOController:
 	def __init__(self):
 		self.test_environment = test_environment
 		self.regions_leds = {
-			"Eastern Asia": 5,
-			"Europe": 2,
-			"Africa": 3,
-			"Oceania": 6,
-			"Northern America": 7,
-			"South America": 0,
-			"Western Asia": 4
+			"Eastern Asia": 4,
+			"Europe": 18,
+			"Africa": 23,
+			"Oceania": 24,
+			"Northern America": 25,
+			"South America": 12,
+			"Western Asia": 16
 		}
 		self.regions_leds_states = {}
 		
