@@ -40,11 +40,11 @@ if run_all_tests:
 	print("Get 4 first entries in dict format")
 	print(json.dumps(rssobject.get_entries_dict()[:4],indent=4))
 
-dfg = DataForGPIO("https://www.gdacs.org/xml/rss_24h.xml")
+dfg = DataForGPIO("https://www.gdacs.org/xml/rss_24h.xml",minalertscore=2)
 
-print(json.dumps(dfg.joined_data,indent=4))
+# print(json.dumps(dfg.joined_data,indent=4))
 
-
+print(json.dumps(dfg.gpio_data))
 
 
 

@@ -79,6 +79,8 @@ class RssAggregator():
 			entry_data["gdacs_icon"] = entry.get("gdacs_icon", "")
 			entry_data["gdacs_severity"] = entry.get("gdacs_severity", "")
 			entry_data["gdacs_population"] = entry.get("gdacs_population", "")
+			entry_data["gdacs_alertlevel"] = entry.get("gdacs_alertlevel", "")
+			entry_data["gdacs_alertscore"] = entry.get("gdacs_alertscore", "")
 			
 			
 			self.entries.append(RssEntry(entry_data))
@@ -229,10 +231,12 @@ class DataForGPIO():
 	joined_data = None
 	gpio_data = None
 	
-	def __init__(self, rss_url="https://www.gdacs.org/xml/rss_eq_48h_low.xml"):
+	def __init__(self, rss_url="https://www.gdacs.org/xml/rss_eq_48h_low.xml",minalertscore=3):
 		self.ca =  CountryAggregator()
 		self.rss = RssAggregator(rss_url, verbose=False)
 		self.fill_joined_data()
+		self.filter_joined_data()
+		self.fill_gpio_data()
 	
 	def fill_joined_data(self):
 		self.joined_data = {}
@@ -242,14 +246,37 @@ class DataForGPIO():
 			entry_countries = entry["gdacs_country"].split(", ")
 			for entry_country in entry_countries:
 				entry_region = self.ca.get_country_region_for_gpio(entry_country)
-				if entry_region not in self.joined_data:
-					self.joined_data[entry_region]= []
-				self.joined_data[entry_region].append(entry)
+				if entry_region not in [None, "", "Not found"]:
+					if entry_region not in self.joined_data:
+						self.joined_data[entry_region]= []
+					self.joined_data[entry_region].append(entry)
 		
 		
 		
+	def filter_joined_data(self, minalertscore=3):
+		filtered_joined_data = {}
 		
+		for  region in self.joined_data:
+			entries = self.joined_data[region]
+			for entry in entries:
+				if float(entry["gdacs_alertscore"]) >= float(minalertscore):
+					if region not in filtered_joined_data:
+						filtered_joined_data[region]= []
+					filtered_joined_data[region].append(entry)
+					
+		self.joined_data = filtered_joined_data
 		
+	def fill_gpio_data(self):
+		self.gpio_data = {}
+		regions = self.ca.get_all_regions_for_gpio()
 		
-		
+		for region in regions:
+			light_up_led = False
+			
+			if region in self.joined_data:
+				self.gpio_data[region] = True
+			
+			
+			
+			
 		
