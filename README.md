@@ -27,9 +27,8 @@ Last 48 hours magnitude > 4.5: https://www.gdacs.org/xml/rss_eq_48h_low.xml
 5. ORANGE = ASIE DE L'OUEST (pin-->GPIO 16)
 6. BLEU = ASIE DE L'EST (pin-->GPIO 4)
 7. GRIS/NOIR = OCEANIE (pin-->GPIO 24)
+8. (blanc/blanc : GND)
 
 Documentation of Raspberry pi 3B pins: 
 
 ![alt text](https://i.stack.imgur.com/gaU6t.png)
-
-(blanc/blanc : GND)
