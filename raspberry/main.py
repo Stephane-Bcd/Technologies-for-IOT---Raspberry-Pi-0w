@@ -39,4 +39,5 @@ gpc.switch_leds_states(regions_booleans = {
 			"Western Asia": False
 		})
 
-
+print("\nData sent to messageries and to influxdb: ")
+print(gpc.joined_data)
