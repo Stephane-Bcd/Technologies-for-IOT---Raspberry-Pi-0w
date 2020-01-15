@@ -8,8 +8,8 @@ sh bash.sh
 
 # Tips for developers
 
-Put all your linux packages (which need sudo apt install) inside of bash.sh
-Put all your python libraries (which need pip install) inside requirements.txt
+- Put all your linux packages (which need sudo apt install) inside of bash.sh
+- Put all your python libraries (which need pip install) inside requirements.txt
 
 
 # Data retrieved from
