@@ -23,7 +23,7 @@ class GPIOController:
 		
 		if not test_environment:
 			#Définit le mode de numérotation (Board)
-			GPIO.setmode(GPIO.BOARD) 
+			GPIO.setmode(GPIO.BCM) 
 			#On désactive les messages d'alerte
 			GPIO.setwarnings(False) 
 			
