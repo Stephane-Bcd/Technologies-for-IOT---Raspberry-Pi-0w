@@ -34,3 +34,10 @@ Documentation of Raspberry pi 3B pins:
 ![alt text](https://i.stack.imgur.com/gaU6t.png)
 
 (This board is used: GPIO.setmode(GPIO.BCM))
+
+# Whatsapp Function
+
+1 - aller dans le dossier /Tech for IOT/raspberry/whatsapp/yowsup
+2 - lancer la ligne de commande "yowsup-cli demos --yowsup --config config"
+3 - /L pour se mettre Online
+
