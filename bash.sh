@@ -27,11 +27,12 @@ sudo apt-get upgrade
 
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker pi
-docker run hello-world
+sudo docker run hello-world
 sudo apt-get install libffi-dev libssl-dev
 sudo apt-get install -y python3 python3-pip
-sudo apt-get remove python-configparser
-sudo pip3 install docker-compose
+# sudo apt-get remove python-configparser
+# sudo pip3 install docker-compose
+sudo apt install docker-compose
 
 sudo docker network create iot-labs
 
