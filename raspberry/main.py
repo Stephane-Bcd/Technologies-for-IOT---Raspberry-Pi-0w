@@ -12,4 +12,7 @@ import json
 
 dfg = DataForGPIO("https://www.gdacs.org/xml/rss_24h.xml",minalertscore=2)
 
+print("Data for GPIO:")
 print(json.dumps(dfg.gpio_data,indent=4))
+print("")
+

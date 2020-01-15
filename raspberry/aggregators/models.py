@@ -1,6 +1,10 @@
 import feedparser
 import json
 import requests
+import os
+
+def path():
+	return str(os.path.abspath(__file__))
 
 
 '''
@@ -13,7 +17,9 @@ class RssEntry():
 	data = {}
 	
 	def __init__(self, data):
+		print("Starting: "+path()+"/RssEntry/__init__")
 		self.data = data
+		print("Ending: "+path()+"/RssEntry/__init__")
 
 	def __str__(self):
 		return json.dumps(self.data, indent=4)
@@ -30,7 +36,7 @@ class RssAggregator():
 	thefeed = {} 
 
 	def __init__(self, paramrssurl, verbose=False):
-		print("Creating RssAgregator:")
+		print("Starting: "+path()+"/RssAggregator/__init__")
 		print("Used url: " + paramrssurl)
 		print("")
 		
@@ -40,9 +46,11 @@ class RssAggregator():
 		self.parse(verbose)
 		
 		# if verbose: print(self.thefeed)
+		print("Ending: "+path()+"/RssAggregator/__init__")
 		
 
 	def parse(self, verbose=False):
+		print("Starting: "+path()+"/RssAggregator/parse")
 		self.thefeed = feedparser.parse(self.data["feedurl"])
 		
 		thefeed = self.thefeed
@@ -89,20 +97,24 @@ class RssAggregator():
 		
 		self.data["entries_count"] = entries_count
 			
-		print("Finished\n")
+		print("Ending: "+path()+"/RssAggregator/parse")
 		
 	def get_dict(self):
 		return self.data
 		
 	def get_entries_dict(self):
+		print("Starting: "+path()+"/RssAggregator/get_entries_dict")
 		entries_json = []
 		for entry in self.entries:
 			entries_json.append(entry.data)
+		print("Ending: "+path()+"/RssAggregator/get_entries_dict")
 		return entries_json
 	
 	def get_all_data_dict(self):
+		print("Starting: "+path()+"/RssAggregator/get_all_data_dict")
 		data = self.data
 		data["entries"] = self.get_entries_dict()
+		print("Ending: "+path()+"/RssAggregator/get_all_data_dict")
 		return data
 
 	def __str__(self):
@@ -118,6 +130,7 @@ class RssAggregator():
 class CountryAggregator():
 	
 	def __init__(self):
+		print("Starting: "+path()+"/CountryAggregator/__init__")
 		self.api_url = "https://restcountries.eu/rest/v2/"
 		
 		self.api_country_region = {}
@@ -127,35 +140,49 @@ class CountryAggregator():
 		self.api_all_subregions = []
 		self.api_all_regions_and_subregions = {}
 		self.api_all_regions_and_subregions_gpio = {}
+		print("Ending: "+path()+"/CountryAggregator/__init__")
 	
 
 	def get_country_region(self, country):
+		print("Starting: "+path()+"/CountryAggregator/get_country_region")
 		if country in self.api_country_region:
+			print("Ending: "+path()+"/CountryAggregator/get_country_region")
 			return self.api_country_region[country]
 		else:
 			r = requests.get(self.api_url+"name/"+country+"?fullText=true&fields=region")
 			returned_region = json.loads(r.text)[0]["region"]
 			self.api_country_region[country] = returned_region
+			print("Ending: "+path()+"/CountryAggregator/get_country_region")
 			return returned_region
 		
 	def format_region_for_gpio(self, region_to_format, subregion):
+		print("Starting: "+path()+"/CountryAggregator/format_region_for_gpio")
 		if region_to_format in ["Europe", "Africa", "Oceania", "Polar", ""]:
+			print("Ending: "+path()+"/CountryAggregator/format_region_for_gpio")
 			return region_to_format
 		else:
 			if region_to_format in ["Americas"]:
 				if "Northern" in subregion or "Caribbean" in subregion:
+					print("Ending: "+path()+"/CountryAggregator/format_region_for_gpio")
 					return "Northern America"
 				else:
+					print("Ending: "+path()+"/CountryAggregator/format_region_for_gpio")
 					return "South America"
 			elif region_to_format in ["Asia"]:
 				if "Western" in subregion or "Central" in subregion:
+					print("Ending: "+path()+"/CountryAggregator/format_region_for_gpio")
 					return "Western Asia"
 				else:
+					print("Ending: "+path()+"/CountryAggregator/format_region_for_gpio")
 					return "Eastern Asia"
-			else: return ""
+			else: 
+				print("Ending: "+path()+"/CountryAggregator/format_region_for_gpio")
+				return ""
 
 	def get_country_region_for_gpio(self, country):
+		print("Starting: "+path()+"/CountryAggregator/get_country_region_for_gpio")
 		if country in self.api_country_region_gpio:
+			print("Ending: "+path()+"/CountryAggregator/get_country_region_for_gpio")
 			return self.api_country_region_gpio[country]
 		else:
 			r = requests.get(self.api_url+"name/"+country+"?fullText=true&fields=region;subregion")
@@ -164,14 +191,18 @@ class CountryAggregator():
 				subregion = json.loads(r.text)[0]["subregion"]
 				region_formatted = self.format_region_for_gpio(region_to_format, subregion)
 				self.api_country_region_gpio[country] = region_formatted
+				print("Ending: "+path()+"/CountryAggregator/get_country_region_for_gpio")
 				return region_formatted
 			else:
 				self.api_country_region_gpio[country] = "Not found"
+				print("Ending: "+path()+"/CountryAggregator/get_country_region_for_gpio")
 				return "Not found"
 
 
 	def get_all_regions(self):
+		print("Starting: "+path()+"/CountryAggregator/get_all_regions")
 		if len(self.api_all_regions)>0:
+			print("Ending: "+path()+"/CountryAggregator/get_all_regions")
 			return self.api_all_regions
 		else:
 			r = requests.get(self.api_url+"all?fields=region")
@@ -183,10 +214,13 @@ class CountryAggregator():
 					l.append(elem["region"])
 			
 			self.api_all_regions = l
+			print("Ending: "+path()+"/CountryAggregator/get_all_regions")
 			return l
 
 	def get_all_subregions(self):
+		print("Starting: "+path()+"/CountryAggregator/get_all_subregions")
 		if len(self.api_all_subregions)>0:
+			print("Ending: "+path()+"/CountryAggregator/get_all_subregions")
 			return self.api_all_subregions
 		else:
 			r = requests.get(self.api_url+"all?fields=subregion")
@@ -198,10 +232,13 @@ class CountryAggregator():
 					l.append(elem["subregion"])
 					
 			self.api_all_subregions = l
+			print("Ending: "+path()+"/CountryAggregator/get_all_subregions")
 			return l
 		
 	def get_all_regions_and_subregions(self):
+		print("Starting: "+path()+"/CountryAggregator/get_all_regions_and_subregions")
 		if self.api_all_regions_and_subregions != {}:
+			print("Ending: "+path()+"/CountryAggregator/get_all_regions_and_subregions")
 			return self.api_all_regions_and_subregions
 		else:
 			r = requests.get(self.api_url+"all?fields=subregion;region")
@@ -214,11 +251,14 @@ class CountryAggregator():
 				if  elem["subregion"] not in res[elem["region"]]:
 					res[elem["region"]].append(elem["subregion"])
 			self.api_all_regions_and_subregions = res
+			print("Ending: "+path()+"/CountryAggregator/get_all_regions_and_subregions")
 			return res
 
 		
 	def get_all_regions_and_subregions_for_gpio(self):
+		print("Starting: "+path()+"/CountryAggregator/get_all_regions_and_subregions_for_gpio")
 		if self.api_all_regions_and_subregions_gpio != {}:
+			print("Ending: "+path()+"/CountryAggregator/get_all_regions_and_subregions_for_gpio")
 			return self.api_all_regions_and_subregions_gpio
 		else:
 			r = requests.get(self.api_url+"all?fields=subregion;region")
@@ -233,11 +273,14 @@ class CountryAggregator():
 					res[elem["region"]].append(elem["subregion"])
 					
 			self.api_all_regions_and_subregions_gpio = res
+			print("Ending: "+path()+"/CountryAggregator/get_all_regions_and_subregions_for_gpio")
 			return res
 
 		
 	def get_all_regions_for_gpio(self):
+		print("Starting: "+path()+"/CountryAggregator/get_all_regions_for_gpio")
 		if len(self.api_all_regions_gpio)>0:
+			print("Ending: "+path()+"/CountryAggregator/get_all_regions_for_gpio")
 			return self.api_all_regions_gpio
 		else:
 			r = requests.get(self.api_url+"all?fields=subregion;region")
@@ -250,6 +293,7 @@ class CountryAggregator():
 					res.append(elem["region"])
 				
 			self.api_all_regions_gpio = res
+			print("Ending: "+path()+"/CountryAggregator/get_all_regions_for_gpio")
 			return res
 
 
@@ -266,13 +310,16 @@ class DataForGPIO():
 	gpio_data = None
 	
 	def __init__(self, rss_url="https://www.gdacs.org/xml/rss_eq_48h_low.xml",minalertscore=3):
+		print("Starting: "+path()+"/DataForGPIO/__init__")
 		self.ca =  CountryAggregator()
 		self.rss = RssAggregator(rss_url, verbose=False)
 		self.fill_joined_data()
 		self.filter_joined_data(minalertscore)
 		self.fill_gpio_data()
+		print("Ending: "+path()+"/DataForGPIO/__init__")
 	
 	def fill_joined_data(self):
+		print("Starting: "+path()+"/DataForGPIO/fill_joined_data")
 		self.joined_data = {}
 		dict_data = self.rss.get_entries_dict()
 		
@@ -286,8 +333,10 @@ class DataForGPIO():
 					self.joined_data[entry_region].append(entry)
 		
 		
+		print("Ending: "+path()+"/DataForGPIO/fill_joined_data")
 		
 	def filter_joined_data(self, minalertscore=3):
+		print("Starting: "+path()+"/DataForGPIO/filter_joined_data")
 		filtered_joined_data = {}
 		
 		for  region in self.joined_data:
@@ -299,8 +348,10 @@ class DataForGPIO():
 					filtered_joined_data[region].append(entry)
 					
 		self.joined_data = filtered_joined_data
+		print("Ending: "+path()+"/DataForGPIO/filter_joined_data")
 		
 	def fill_gpio_data(self):
+		print("Starting: "+path()+"/DataForGPIO/fill_gpio_data")
 		self.gpio_data = {}
 		regions = self.ca.get_all_regions_for_gpio()
 		
@@ -312,5 +363,6 @@ class DataForGPIO():
 				self.gpio_data[region] = False
 			
 			
+		print("Ending: "+path()+"/DataForGPIO/fill_gpio_data")
 			
 		
