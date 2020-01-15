@@ -1,5 +1,6 @@
 from aggregators.models import RssAggregator, RssEntry, CountryAggregator
 from aggregators.models import DataForGPIO
+from powerled.test_led import GPIOController
 import json
 
 '''
@@ -10,9 +11,19 @@ import json
 	4. Send it to a database
 '''
 
-dfg = DataForGPIO("https://www.gdacs.org/xml/rss_24h.xml",minalertscore=2)
+RSS_SOURCE = "https://www.gdacs.org/xml/rss_24h.xml"
+MIN_ALERT_SCORE = 2
+
+
+'''dfg = DataForGPIO(RSS_SOURCE,minalertscore=2)
 
 print("Data for GPIO:")
 print(json.dumps(dfg.gpio_data,indent=4))
-print("")
+print("")'''
 
+
+gpc = GPIOController()
+
+print(gpc)
+
+gpc.bite("")
