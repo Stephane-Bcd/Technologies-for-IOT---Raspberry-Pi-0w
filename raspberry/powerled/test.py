@@ -9,7 +9,7 @@ print (gpc.test_environment)
 gpc.switch_leds_states()
 
 
-time.sleep(30)
+time.sleep(10)
 
 gpc.switch_leds_states(regions_booleans = {
 			"Eastern Asia": False,

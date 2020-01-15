@@ -23,9 +23,9 @@ class GPIOController:
 		
 		if not test_environment:
 			#Définit le mode de numérotation (Board)
-			GPIO.setmode(GPIO.BCM) 
+			GPIO.setmode(GPIO.BCM)
 			#On désactive les messages d'alerte
-			GPIO.setwarnings(False) 
+			GPIO.setwarnings(False)
 			
 			#Active le contrôle du GPIO
 			for region in self.regions_leds:

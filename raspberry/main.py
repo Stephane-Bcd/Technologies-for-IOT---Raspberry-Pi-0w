@@ -1,6 +1,6 @@
 from aggregators.models import RssAggregator, RssEntry, CountryAggregator
 from aggregators.models import DataForGPIO
-from powerled.test_led import GPIOController
+from powerled.models import GPIOController
 import json
 
 '''
@@ -15,15 +15,27 @@ RSS_SOURCE = "https://www.gdacs.org/xml/rss_24h.xml"
 MIN_ALERT_SCORE = 2
 
 
-'''dfg = DataForGPIO(RSS_SOURCE,minalertscore=2)
+dfg = DataForGPIO(RSS_SOURCE,minalertscore=2)
 
 print("Data for GPIO:")
 print(json.dumps(dfg.gpio_data,indent=4))
-print("")'''
+print("")
 
 
 gpc = GPIOController()
 
-print(gpc)
+gpc.switch_leds_states(dfg.gpio_data)
 
-gpc.bite("")
+time.sleep(10)
+
+gpc.switch_leds_states(regions_booleans = {
+			"Eastern Asia": False,
+			"Europe": False,
+			"Africa": False,
+			"Oceania": False,
+			"Northern America": False,
+			"South America": False,
+			"Western Asia": False
+		})
+
+
